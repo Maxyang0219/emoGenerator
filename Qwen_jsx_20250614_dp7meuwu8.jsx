@@ -1,0 +1,102 @@
+import React, { useState } from 'react';
+
+export default function App() {
+  const [emoText, setEmoText] = useState('');
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  const emoTemplates = [
+    "有时候，深夜最安静的时候，才是内心最喧嚣的时刻。",
+    "窗外的风在低语，像极了我藏在心底说不出口的话。",
+    "一个人看月亮是浪漫，两个人看月亮是幸福，而我只能一个人数星星。",
+    "回忆就像海浪，退潮时留下空虚，涨潮时又带着疼痛涌来。",
+    "灯火阑珊处没有人等我，热闹散尽后只有我还在。",
+    "我们都在努力长大，却忘了怎么做个开心的孩子。",
+    "时间不是药，但有些伤口它真的治不好。",
+    "你走以后，连下雨都像你在嘲笑我的孤独。",
+    "原来有些人注定只是陪你走过一段路，而不是回家的终点。",
+    "越想忘记的事，越会在夜深人静时清晰浮现。",
+    "笑给别人看久了，连哭都忘了该怎么释放。",
+    "人生最痛的不是失去，而是明明还在却再也触碰不到。",
+    "梦里的你总是笑着，醒来却发现一切都只是梦。",
+    "我以为时间会冲淡一切，结果它只是把思念藏得更深。",
+    "沉默不是无话可说，而是有太多无法说出口的话。",
+    "喜欢是最没用的东西，连一句晚安都换不来。",
+    "孤独不是没人陪，而是没人懂。",
+    "有些人走进你心里，只是为了提醒你他们不属于你。",
+    "清醒一点吧，有些事永远不会有答案。",
+    "我试着释怀，却发现心早已锈迹斑斑。",
+    "秋风吹散了落叶，也吹散了我们之间最后一丝联系。",
+    "手机屏幕的光再亮，也照不进深夜的孤独。",
+    "地铁站的人来人往，却没有一个人为我停留。",
+    "街角的霓虹在雨中模糊成泪痕，像极了我混乱的心绪。",
+    "凌晨三点的钟表声格外清晰，仿佛在提醒我失眠的狼狈。",
+    "耳机里的歌单循环播放，就像我对你的念念不忘。",
+    "便利店的灯光是城市最后的温柔，却暖不了握冰的手。",
+    "云层厚厚的夜晚，连月光都成了稀缺的安慰。",
+    "社交软件的头像一成不变，就像困在回忆里的自己。",
+    "烟火气最撩人的不是温暖，是让人想起曾经有人分享过。",
+    "冰箱里空荡荡的 shelves，倒映着我空荡荡的心事。",
+    "冬夜裹着羽绒服出门，却发现最冷的是心口的位置。",
+    "路灯下的影子被拉得很长，像极了被拉长的思念。",
+    "热水袋暖得了被窝，暖不了心底结的冰。",
+    "旧毛衣起球的地方越来越多，像极了我们的关系。",
+    "窗外的雪静静地下着，而我的眼泪也悄无声息。",
+    "挂历翻到最后一页，才发现这一年白忙了寂寞。",
+    "充电器插在插座上整夜未拔，像极了我死守的执着。",
+    "外卖盒子堆成小山，胃里的空洞却越来越大。",
+    "电梯里的镜子照出疲惫的自己，连叹息都显得苍白。"
+  ];
+
+  const generateEmoText = () => {
+    setIsGenerating(true);
+    setTimeout(() => {
+      const randomIndex = Math.floor(Math.random() * emoTemplates.length);
+      setEmoText(emoTemplates[randomIndex]);
+      setIsGenerating(false);
+    }, 600);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-black text-white flex flex-col items-center justify-center px-4 py-12">
+      <div className="max-w-lg w-full mx-auto">
+        <header className="text-center mb-10">
+          <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
+            深夜 EMO 文案生成器
+          </h1>
+          <p className="mt-3 text-gray-400">点击按钮，让文字说出你的心事</p>
+        </header>
+
+        <div className="bg-gray-800/70 backdrop-blur-sm rounded-xl shadow-2xl p-6 border border-gray-700 transition-all duration-300 hover:shadow-purple-500/20">
+          <div className="mb-6 min-h-[120px] flex items-center justify-center">
+            {isGenerating ? (
+              <div className="flex flex-col items-center">
+                <div className="w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
+                <p className="mt-3 text-gray-400">正在为你酝酿情绪...</p>
+              </div>
+            ) : emoText ? (
+              <p className="text-lg text-gray-200 italic text-center">{emoText}</p>
+            ) : (
+              <p className="text-gray-500 text-center">点击下方按钮生成你的深夜emo文案</p>
+            )}
+          </div>
+
+          <button
+            onClick={generateEmoText}
+            disabled={isGenerating}
+            className={`w-full py-3 px-6 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 ${
+              isGenerating
+                ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
+                : 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white shadow-lg hover:shadow-purple-500/25'
+            }`}
+          >
+            {isGenerating ? '生成中...' : '生成 EMO 文案'}
+          </button>
+        </div>
+
+        <footer className="mt-12 text-center text-sm text-gray-500">
+          <p>© 2025 夜深人静有限公司 | 保留所有emo权利</p>
+        </footer>
+      </div>
+    </div>
+  );
+}
